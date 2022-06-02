@@ -26,8 +26,11 @@ export class AnnouncesComponent implements OnInit {
   constructor(private router: Router, private locationService: LocationService) { }
 
   ngOnInit(): void {
-    this.locationService.getLocations().subscribe((data:any)=>{this.announces = data.body;})
+    this.locationService.getLocations().subscribe((data:any)=>{this.announces = data.body.filter((l:Location)=>this.ok(l));})
     // this.refugeeService.getRefugeeNotAccepted().subscribe((data.any)=>{this.re})
+  }
+  ok(x:Location) : boolean {
+    return x.nr! > x.currNr!;
   }
 
   clickAnnounces(): void {

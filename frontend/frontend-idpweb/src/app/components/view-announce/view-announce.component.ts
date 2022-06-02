@@ -111,6 +111,7 @@ export class ViewAnnounceComponent implements OnInit {
         this.connection.location =data2.body;
         this.connectService.addConnection(this.connection).subscribe((data: any) => {
           console.log(this.connection);
+          this.router.navigate(['/saved-connections']);
         });
       })
     });

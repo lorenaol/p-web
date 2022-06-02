@@ -57,7 +57,7 @@ export class ProfileComponent implements OnInit {
       if(this.userPhone != '') {
         this.user.phone = this.userPhone;
       }
-      if(this.userNewPassword == this.userRepeatPassword) {
+      if(this.userNewPassword == this.userRepeatPassword && this.userNewPassword != '') {
         this.user.password = this.userNewPassword;
       }
       this.userService.updateUser(this.user).subscribe(()=>{

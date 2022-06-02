@@ -69,6 +69,7 @@ export class RefugeeListComponent implements OnInit {
       width: '27%'
     });
     dialogRef.afterClosed().subscribe(res => {
+      this.ngOnInit();
       console.log(res);
     })
   }

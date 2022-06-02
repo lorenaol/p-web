@@ -20,7 +20,7 @@ export class DeleteConnectionComponent implements OnInit {
   refugees: Refugee={};
   connection: Connection = {};
   addRefugee: Refugee={};
-
+  selectedRefugee?: string;
   buttonDisabled?: boolean;
 
   constructor(private router: Router, private locationService: LocationService,  private connectService : ConnectionService,
@@ -32,14 +32,18 @@ export class DeleteConnectionComponent implements OnInit {
       console.log(this.route.snapshot.params['id']);
       if (this.route.snapshot.params['id']) {
         this.connectService.find(this.route.snapshot.params['id']).subscribe((data: any) => {
+          console.log(data.body)
           this.connection = data.body;
-            this.locationService.find(this.connection.location?.id!).subscribe((data2:any)=>{
-              this.announce=data2.body;
-            this.refugeeService.find(this.connection.refugee?.id!).subscribe((data3: any) => {
-              this.refugees = data3.body;
-              this.buttonDisabled = false;
-            });
-          });
+          this.announce = data.body.location;
+          this.refugees = data.body.refugee;
+          this.selectedRefugee = "  " + this.refugees.name + "                  " + this.refugees.nr;
+          //   this.locationService.find(this.connection.location?.id!).subscribe((data2:any)=>{
+          //     this.announce=data2.body;
+          //   this.refugeeService.find(this.connection.refugee?.id!).subscribe((data3: any) => {
+          //     this.refugees = data3.body;
+          //     this.buttonDisabled = false;
+          //   });
+          // });
 
 
         });
@@ -98,22 +102,21 @@ export class DeleteConnectionComponent implements OnInit {
 
   delete() :void{
 
-      this.addRefugee.accepted = false;
-      this.announce.currNr = this.announce.currNr! - this.addRefugee.nr!;
+      this.refugees.accepted = false;
+      this.announce.currNr = this.announce.currNr! - this.refugees.nr!;
 
       // this.connection.location  =this.announce;
       // this.connection.refugee = this.addRefugee;
-      this.refugeeService.updateRefugee(this.addRefugee).subscribe((data1:any)=>{
-        this.connection.refugee = data1.body;
+      this.refugeeService.updateRefugee(this.refugees).subscribe((data1:any)=>{
         this.locationService.updateLocation(this.announce).subscribe((data2:any) => {
-          this.connection.location =data2.body;
           this.connectService.deleteConnection(this.connection).subscribe((data: any) => {
             console.log(this.connection);
+            this.router.navigate(['refugee-list']);
           });
         })
       });
 
-    this.router.navigate(['refugee-list']);
+
 
   }
 }

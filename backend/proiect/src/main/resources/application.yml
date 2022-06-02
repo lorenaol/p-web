@@ -7,9 +7,9 @@ spring:
 #    username: ${MYSQL_USER}
 #    password: ${MYSQL_PASSWORD}
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}
-    username: ${MYSQL_USER}
-    password: ${MYSQL_PASSWORD}
+    url: jdbc:mysql://mysql:3306/db
+    username: user
+    password: pass
   jpa:
     driverClassName: com.mysql.cj.jdbc.Driver
     dialect: org.hibernate.dialect.MySQL8Dialect

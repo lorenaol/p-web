@@ -56,7 +56,7 @@
         <button class="edit-button" (click)="clickViewAnnounce(a)">
           <i class="fa fa-arrow-right fa-arrow-right"><a class="title-an">{{a.location?.title}}</a></i>
         </button>
-        <p class="no-pers-an">&bull; {{a.location?.nr}} locuri
+        <p class="no-pers-an">&bull; {{a.location?.currNr}}/{{a.location?.nr}} locuri
           <a class="user-name">{{a.location?.user?.name}}</a>
         </p>
       </mat-card>

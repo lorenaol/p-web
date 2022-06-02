@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Router} from "@angular/router";
 import {Refugee} from "../../entities/refugee";
 import {RefugeeService} from "../../services/refugee.service";
+import {ConnectionService} from "../../services/connection.service";
 
 
 class DialogData {
@@ -28,7 +29,8 @@ export class EditRefugeeDialogComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<EditRefugeeDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: DialogData,
               private refugeeService: RefugeeService,
-              private router: Router) { }
+              private router: Router,
+              private connectionService: ConnectionService) { }
 
   ngOnInit(): void {
     console.log(this.data);
@@ -51,7 +53,10 @@ export class EditRefugeeDialogComponent implements OnInit {
   }
 
   clickSeeConection(ref : any): void {
-    this.dialogRef.close();
-    this.router.navigate(['/view-connection/'+ref.id]);
+    this.connectionService.getConnectionRefugee(ref.id).subscribe((data:any) => {
+      this.dialogRef.close();
+      this.router.navigate(['/view-connection/'+data.body.id]);
+    })
+
   }
 }

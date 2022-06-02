@@ -64,18 +64,19 @@
       <a class="user-info">{{announce?.user?.phone}}</a>
       <br>
       <a class="user-info">{{announce?.user?.email}}</a>
-      <p class="noP">/{{announce?.nr}}</p>
+      <p class="noP">{{announce?.currNr}}/{{announce?.nr}}</p>
     </mat-card>
 
+
+
     <mat-card class="card-refugees">
-<!--      <p class="title-refugees">Adauga un refugiat</p>-->
+      <p class="title-refugees">Adauga un refugiat</p>
       <div style="text-align:center;">
-<!--        <select [(ngModel)]="addRefugee" class="input">-->
-<!--          <option *ngFor="let r of refugees" [ngValue]="r">{{r.name}}</option>-->
-<!--        </select>-->
-        <a>{{refugees?.name}}</a>
+        <input type="text" class="input" [(ngModel)]="selectedRefugee" readonly>
       </div>
     </mat-card>
+
+
 
 
   </div>

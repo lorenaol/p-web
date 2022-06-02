@@ -36,24 +36,27 @@ export class DeleteRefugeeDialogComponent implements OnInit {
   onClick(): void {
 
     this.connectionService.getConnectionRefugee(this.refugee.id!).subscribe(res=>{
-      if(res.body!.location?.currNr){
-      res.body!.location.currNr = res.body!.location.currNr - res.body!.refugee?.nr!;
-      //update location
-        } else {
-        this.refugeeService.deleteRefugee(this.refugee).subscribe(()=>{this.dialogRef.close();})
-      }
-      this.connectionService.deleteConnection(res.body!).subscribe(res1=>{
-        this.refugeeService.deleteRefugee(this.refugee).subscribe(res2=>{
-          // this.locationService.find(res.body!.location!.id!).subscribe(data=>
-          // {
+      const a = res.body;
+      if(res?.body){
+      res.body!.location!.currNr = res.body!.location!.currNr! - res.body!.refugee?.nr!;
+        this.connectionService.deleteConnection(a!).subscribe(res1=>{
+
+          this.refugeeService.deleteRefugee(this.refugee).subscribe(res2=>{
+            // this.locationService.find(res.body!.location!.id!).subscribe(data=>
+            // {
             this.locationService.updateLocation(res.body?.location!).subscribe(data2=>{
               this.dialogRef.close();
             })
 
-          // })
+            // })
 
-        });
-      })
+          });
+        })
+      //update location
+        } else {
+        this.refugeeService.deleteRefugee(this.refugee).subscribe(()=>{this.dialogRef.close();})
+      }
+
     })
 
 
